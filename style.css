@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 :root {
@@ -8,7 +9,7 @@
     
     /* Border */
     --border-color: rgba(255, 255, 255, .3);
-    --border-radius: 1rem;
+    --border-radius: .7rem;
     --border-width: .0625rem;
 }
 
@@ -21,7 +22,7 @@ body {
     padding: 0px 20px;
 }
 
-.main-container {
+main {
     width: 60%;
     height: 100%;
     display: flex;
@@ -30,69 +31,52 @@ body {
     margin: 0px auto;
 }
 
-.history-container {
-    height: 100%;
-    overflow-y: scroll;
-    width: 40%;
-}
-
-.history-h1 {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.history-round-container {
-    max-width: 100%;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.history-round-container span {
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius);
-    font-size: 1.5rem;
-    padding: 10px 20px;
-}
-
-.dice-form {
-    width: 60%;
+.player-register-form {
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 1.25rem    ;
 }
 
-.btn-container-dice {
-    padding: 20px;
-}
-
-.dice-game-btn {
+.player-register-form input,
+.player-register-form button {
+    width: 100%;
+    padding: 10px;
     background: none;
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--border-radius);
+    outline: none;
     color: var(--text-color);
-    padding: 1rem 2rem;
-    text-transform: capitalize;
-    font-size: 1rem;
+}
+
+.player-register-form button {
     cursor: pointer;
-    margin: 0 10px;
+    text-transform: uppercase;
+    letter-spacing: .07rem;
 }
 
-.dice-container {
-    width: 37.5rem;
-    height: 12.5rem;
+.game-container {
+    width: 100%;
     display: flex;
-    gap: 1.25rem;
+    gap: 20px;
 }
 
-.dice-container span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    height: 100%;
+.player-container {
+    width: 50%;
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--border-radius);
-    font-size: 1.5rem;
+    padding: 10px;
+}
+
+.player-info-container {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.player-info-container h1 {
+    margin: 0;
 }
