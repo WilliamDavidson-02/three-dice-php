@@ -35,11 +35,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h1><?php echo $computer->get_name(); ?></h1>
                     <h1>Points: <?php echo $computer->get_points(); ?></h1>
                 </div>
+                <div class="dice-container">
+                    <?php foreach ($computer->rollDices() as $dice): ?>
+                        <div class="dice"><?php echo $dice?></div>
+                    <?php endforeach; ?>
+                </div>
             </div>
             <div class="player-container">
                 <div class="player-info-container">
                     <h1><?php echo $player->get_name(); ?></h1>
                     <h1>Points: <?php echo $player->get_points(); ?></h1>
+                </div>
+                <div class="dice-container">
+                    <?php foreach ($player->rollDices() as $dice): ?>
+                        <div class="dice"><?php echo $dice?></div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
