@@ -38,7 +38,7 @@ $currentRound = (isset($_POST['currentRound'])) ? $_POST['currentRound'] : 1;
             <input class="border" type="text" placeholder="Username" name="playerName" required minlength="2">
             <label for="rounds">Select Rounds</label>
             <select name="rounds" class="border rounds-container">
-                <?php for ($i = 1; $i <= 10; $i++): ?>
+                <?php for ($i = 1; $i <= 20; $i++): ?>
                     <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                 <?php endfor; ?>
             </select>
@@ -85,8 +85,19 @@ $currentRound = (isset($_POST['currentRound'])) ? $_POST['currentRound'] : 1;
             </div>
         </form>
         <?php else: ?>
-        <div>
-            <h1>Game over</h1>
+        <div class="border game-over-container">
+            <?php if ($player->get_points() > $computer->get_points()): ?>
+            <h1>Winner is <?php echo $player->get_name(); ?></h1>
+            <?php elseif ($player->get_points() < $computer->get_points()): ?>
+            <h1>Winner is <?php echo $computer->get_name(); ?></h1>
+            <?php else: ?>
+            <h1>It's a draw</h1>
+            <?php endif; ?>
+            <div class="border score-container">
+                <h3>Score</h3>
+                <div><?php echo $computer->get_name(); ?>: <?php echo $computer->get_points(); ?></div>
+                <div><?php echo $player->get_name(); ?>: <?php echo $player->get_points(); ?></div>
+            </div>
             <a title="Cancel the game" class="border cancel-btn" href="/"><i class="fa-solid fa-x"></i></a>
         </div>
         <?php endif; ?>

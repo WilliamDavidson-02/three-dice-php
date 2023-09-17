@@ -132,3 +132,31 @@ main {
 .cancel-btn {
     text-decoration: none;
 }
+
+.game-over-container {
+    padding: 20px;
+    letter-spacing: .02rem;
+}
+
+.game-over-container h1 {
+    font-size: 2rem;
+}
+
+.game-over-container a {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.score-container {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.1rem;
+}
+
+.score-container h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
