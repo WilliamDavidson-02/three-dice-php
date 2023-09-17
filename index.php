@@ -1,8 +1,13 @@
 <?php 
 require_once __DIR__ . '/class/player.php'; 
-$player = new Player(0);
-$computer = new Player(0);
-$computer->set_name('Computer');
+$player = new Player(0, '');
+$computer = new Player(0, 'Computer');
+
+$playerPointsArray = $player->rollDices();
+$computerPointsArray = $computer->rollDices();
+
+$player->set_points($playerPointsArray);
+$computer->set_points($computerPointsArray);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $player->set_name($_POST['playerName']);
@@ -23,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <main>
-        <?php if (!$player->get_name()): ?>
+        <?php if ($player->get_name() === ''): ?>
         <form method="POST" class="player-register-form">
             <input type="text" placeholder="Username" name="playerName" required minlength="2">
             <button type="submit">Start Game</button>
@@ -36,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h1>Points: <?php echo $computer->get_points(); ?></h1>
                 </div>
                 <div class="dice-container">
-                    <?php foreach ($computer->rollDices() as $dice): ?>
+                    <?php foreach ($computerPointsArray as $dice): ?>
                         <div class="dice"><?php echo $dice?></div>
                     <?php endforeach; ?>
                 </div>
@@ -47,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h1>Points: <?php echo $player->get_points(); ?></h1>
                 </div>
                 <div class="dice-container">
-                    <?php foreach ($player->rollDices() as $dice): ?>
+                    <?php foreach ($playerPointsArray as $dice): ?>
                         <div class="dice"><?php echo $dice?></div>
                     <?php endforeach; ?>
                 </div>
