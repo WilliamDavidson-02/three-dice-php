@@ -6,14 +6,16 @@ $playerName = (isset($_POST['playerName'])) ? $_POST['playerName'] : '';
 
 $computerPoints = (isset($_POST['computerPoints'])) ? $_POST['computerPoints'] : 0;
 
-$player = new Player($playerPoints, $playerName);
-$computer = new Player($computerPoints, 'Computer');
+$diceSides = (isset($_POST['sides'])) ? $_POST['sides'] : 6;
+
+$player = new Player($playerPoints, $playerName, $diceSides);
+$computer = new Player($computerPoints, 'Computer', $diceSides);
 
 $playerPointsArray = $player->rollDices();
 $computerPointsArray = $computer->rollDices();
 
-$player->set_points($playerPointsArray);
-$computer->set_points($computerPointsArray);
+$player->set_points($playerPointsArray, $diceSides);
+$computer->set_points($computerPointsArray, $diceSides);
 
 $rounds = (isset($_POST['rounds'])) ? $_POST['rounds'] : 1;
 $currentRound = (isset($_POST['currentRound'])) ? $_POST['currentRound'] : 1;
@@ -42,10 +44,17 @@ $currentRound = (isset($_POST['currentRound'])) ? $_POST['currentRound'] : 1;
                     <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                 <?php endfor; ?>
             </select>
+            <label for="sides">Select dice sides</label>
+            <select name="sides" class="border rounds-container">
+                <?php for ($i = 3; $i <= 9; $i++): ?>
+                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                <?php endfor; ?>
+            </select>
             <button class="border" type="submit">Start Game</button>
         </form>
         <?php elseif ($currentRound <= $rounds): ?>
         <form method="post" class="game-form-container">
+            <input type="hidden" name="sides" value="<?php echo $diceSides; ?>">
             <div>
                 <h1>Round: <?php echo $currentRound; ?>/<?php echo $rounds; ?></h1>
                 <input type="hidden" name="rounds" value="<?php echo $rounds; ?>">

@@ -9,12 +9,12 @@ class Player {
     public $dice2;
     public $dice3;
 
-    public function __construct($point, $name) {
+    public function __construct($point, $name, $diceSides) {
         $this->points = $point;
         $this->name = $name;
-        $this->dice1 = new Dice();
-        $this->dice2 = new Dice();
-        $this->dice3 = new Dice();
+        $this->dice1 = new Dice($diceSides);
+        $this->dice2 = new Dice($diceSides);
+        $this->dice3 = new Dice($diceSides);
     }
 
     public function rollDices() {
@@ -25,8 +25,8 @@ class Player {
         return [$roll1, $roll2, $roll3];
     }
 
-    public function set_points($diceRollArray) {
-        if ($diceRollArray[0] + $diceRollArray[1] + $diceRollArray[2] >= 14) {
+    public function set_points($diceRollArray, $diceSides) {
+        if ($diceRollArray[0] + $diceRollArray[1] + $diceRollArray[2] >= $diceSides * (2 + (1/3))) {
             $this->points += 1;
         }
         if ($diceRollArray[0] == $diceRollArray[1] && $diceRollArray[1] == $diceRollArray[2]) {

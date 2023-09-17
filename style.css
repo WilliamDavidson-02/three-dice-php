@@ -136,10 +136,12 @@ main {
 .game-over-container {
     padding: 20px;
     letter-spacing: .02rem;
+    min-width: 300px;
 }
 
 .game-over-container h1 {
     font-size: 2rem;
+    text-align: center;
 }
 
 .game-over-container a {
