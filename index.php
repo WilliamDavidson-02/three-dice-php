@@ -25,7 +25,7 @@ $currentRound = (isset($_POST['currentRound'])) ? $_POST['currentRound'] : 1;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./images/dice.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/dice-svgrepo-com.svg" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,8 +77,8 @@ $currentRound = (isset($_POST['currentRound'])) ? $_POST['currentRound'] : 1;
                 <div class="player-container border">
                     <div class="player-info-container">
                         <h1><?php echo $player->get_name(); ?></h1>
-                        <input type="hidden" name="playerName" value="<?php echo $player->get_name(); ?>">
                         <h1>Points: <?php echo $player->get_points(); ?></h1>
+                        <input type="hidden" name="playerName" value="<?php echo $player->get_name(); ?>">
                         <input type="hidden" name="playerPoints" value="<?php echo $player->get_points(); ?>">
                     </div>
                     <div class="dice-container">
