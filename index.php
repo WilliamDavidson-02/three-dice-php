@@ -1,17 +1,19 @@
 <?php 
 require_once __DIR__ . '/class/player.php'; 
-$player = new Player(0, '');
-$computer = new Player(0, 'Computer');
+
+$playerPoints = (isset($_POST['playerPoints'])) ? $_POST['playerPoints'] : 0;
+$playerName = (isset($_POST['playerName'])) ? $_POST['playerName'] : '';
+
+$computerPoints = (isset($_POST['computerPoints'])) ? $_POST['computerPoints'] : 0;
+
+$player = new Player($playerPoints, $playerName);
+$computer = new Player($computerPoints, 'Computer');
 
 $playerPointsArray = $player->rollDices();
 $computerPointsArray = $computer->rollDices();
 
 $player->set_points($playerPointsArray);
 $computer->set_points($computerPointsArray);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $player->set_name($_POST['playerName']);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,34 +32,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main>
         <?php if ($player->get_name() === ''): ?>
         <form method="POST" class="player-register-form">
-            <input type="text" placeholder="Username" name="playerName" required minlength="2">
-            <button type="submit">Start Game</button>
+            <input class="border" type="text" placeholder="Username" name="playerName" required minlength="2">
+            <button class="border" type="submit">Start Game</button>
         </form>
         <?php else: ?>
-        <div class="game-container">
-            <div class="player-container">
-                <div class="player-info-container">
-                    <h1><?php echo $computer->get_name(); ?></h1>
-                    <h1>Points: <?php echo $computer->get_points(); ?></h1>
+        <form method="post" class="game-form-container">
+            <div class="game-container">
+                <div class="player-container border">
+                    <div class="player-info-container">
+                        <h1><?php echo $computer->get_name(); ?></h1>
+                        <h1>Points: <?php echo $computer->get_points(); ?></h1>
+                        <input type="hidden" name="computerPoints" value="<?php echo $computer->get_points(); ?>">
+                    </div>
+                    <div class="dice-container">
+                        <?php foreach ($computerPointsArray as $dice): ?>
+                            <div class="dice border"><?php echo $dice?></div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-                <div class="dice-container">
-                    <?php foreach ($computerPointsArray as $dice): ?>
-                        <div class="dice"><?php echo $dice?></div>
-                    <?php endforeach; ?>
+                <div class="player-container border">
+                    <div class="player-info-container">
+                        <h1><?php echo $player->get_name(); ?></h1>
+                        <input type="hidden" name="playerName" value="<?php echo $player->get_name(); ?>">
+                        <h1>Points: <?php echo $player->get_points(); ?></h1>
+                        <input type="hidden" name="playerPoints" value="<?php echo $player->get_points(); ?>">
+                    </div>
+                    <div class="dice-container">
+                        <?php foreach ($playerPointsArray as $dice): ?>
+                            <div class="dice border"><?php echo $dice?></div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
-            <div class="player-container">
-                <div class="player-info-container">
-                    <h1><?php echo $player->get_name(); ?></h1>
-                    <h1>Points: <?php echo $player->get_points(); ?></h1>
-                </div>
-                <div class="dice-container">
-                    <?php foreach ($playerPointsArray as $dice): ?>
-                        <div class="dice"><?php echo $dice?></div>
-                    <?php endforeach; ?>
-                </div>
+            <div class="dice-roll-btn-container">
+                <button class="border" type="submit"><i class="fa-solid fa-dice"></i></button>
             </div>
-        </div>
+        </form>
         <?php endif; ?>
     </main>
 </body>
