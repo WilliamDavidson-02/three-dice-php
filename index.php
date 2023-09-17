@@ -14,6 +14,9 @@ $computerPointsArray = $computer->rollDices();
 
 $player->set_points($playerPointsArray);
 $computer->set_points($computerPointsArray);
+
+$rounds = (isset($_POST['rounds'])) ? $_POST['rounds'] : 1;
+$currentRound = (isset($_POST['currentRound'])) ? $_POST['currentRound'] : 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,10 +36,22 @@ $computer->set_points($computerPointsArray);
         <?php if ($player->get_name() === ''): ?>
         <form method="POST" class="player-register-form">
             <input class="border" type="text" placeholder="Username" name="playerName" required minlength="2">
+            <label for="rounds">Select Rounds</label>
+            <select name="rounds" class="border rounds-container">
+                <?php for ($i = 1; $i <= 10; $i++): ?>
+                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                <?php endfor; ?>
+            </select>
             <button class="border" type="submit">Start Game</button>
         </form>
-        <?php else: ?>
+        <?php elseif ($currentRound <= $rounds): ?>
         <form method="post" class="game-form-container">
+            <div>
+                <h1>Round: <?php echo $currentRound; ?>/<?php echo $rounds; ?></h1>
+                <input type="hidden" name="rounds" value="<?php echo $rounds; ?>">
+                <?php $currentRound++?>
+                <input type="hidden" name="currentRound" value="<?php echo $currentRound; ?>">
+            </div>
             <div class="game-container">
                 <div class="player-container border">
                     <div class="player-info-container">
@@ -66,8 +81,14 @@ $computer->set_points($computerPointsArray);
             </div>
             <div class="dice-roll-btn-container">
                 <button class="border" type="submit"><i class="fa-solid fa-dice"></i></button>
+                <a title="Cancel the game" class="border cancel-btn" href="/"><i class="fa-solid fa-x"></i></a>
             </div>
         </form>
+        <?php else: ?>
+        <div>
+            <h1>Game over</h1>
+            <a title="Cancel the game" class="border cancel-btn" href="/"><i class="fa-solid fa-x"></i></a>
+        </div>
         <?php endif; ?>
     </main>
 </body>
